@@ -21,26 +21,7 @@ export default function SplashScreen() {
           </div>
    
           <div className="relative z-10 flex flex-col items-center text-center px-6">
-            <div className="mb-8 relative">
-              <div className="w-32 h-32 md:w-44 md:h-44 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border-4 border-yellow-400 shadow-xl overflow-hidden">
-                <div className="pixel-cyclist relative flex flex-col items-center">
-                  <div className="relative w-24 h-24">
-                    <div className="absolute top-2 left-6 w-10 h-6 bg-red-500 border-b-2 border-red-700"></div>
-                    <div className="absolute top-8 left-8 w-6 h-6 bg-orange-200"></div>
-                    <div className="absolute top-10 left-12 w-2 h-2 bg-black"></div>
-                    <div className="absolute top-14 left-6 w-10 h-10 bg-blue-500"></div>
-                    <div className="absolute bottom-0 left-2 w-20 h-2 bg-gray-700"></div>
-                    <div className="absolute bottom-0 left-2 w-2 h-12 bg-gray-700"></div>
-                    <div className="absolute bottom-0 right-2 w-2 h-12 bg-gray-700"></div>
-                    <div className="absolute bottom-0 -left-2 w-8 h-8 rounded-full border-4 border-black bg-white/10"></div>
-                    <div className="absolute bottom-0 -right-2 w-8 h-8 rounded-full border-4 border-black bg-white/10"></div>
-                  </div>
-                </div>
-              </div>
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-accent text-white px-6 py-2 rounded-lg border-4 border-white pixel-font text-[10px] shadow-lg">
-                LVL 1
-              </div>
-            </div>
+         
             <div className="mb-10">
               <h1 className="text-white text-6xl md:text-8xl bungee tracking-tighter drop-shadow-[0_8px_0_rgba(0,0,0,0.4)]">
                 QUEST <span className="text-yellow-300">EARTH</span>
