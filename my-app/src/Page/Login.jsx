@@ -23,11 +23,11 @@ export default function Login() {
               <h1 className="text-white text-4xl md:text-6xl bungee tracking-tighter drop-shadow-[0_4px_0_rgba(0,0,0,0.6)]">
                 QUEST <span className="text-yellow-300">EARTH</span>
             </h1>
-            <p class="text-white text-sm md:text-base pixel-font tracking-tight mt-2 bg-black/40 px-4 py-1 border-2 border-white/20 inline-block">
+            <p className="text-white text-sm md:text-base pixel-font tracking-tight mt-2 bg-black/40 px-4 py-1 border-2 border-white/20 inline-block">
               EXPLORER LOGIN
             </p>
           </div>
-          <div class="relative z-10 flex items-center justify-center w-full max-w-5xl px-4">
+          <div className="relative z-10 flex items-center justify-center w-full max-w-5xl px-4">
           
               <div className="parchment-container w-full max-w-md p-8 md:p-10 border-4 border-[#8b4513] rounded-sm">
                 <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#8b4513]"></div>
@@ -36,59 +36,59 @@ export default function Login() {
                 <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-[#8b4513]"></div>
                 <form className="space-y-5">
                 <div>
-                  <label class="block pixel-font text-[10px] text-[#5d2e0a] mb-2">
+                  <label className="block pixel-font text-[10px] text-[#5d2e0a] mb-2">
                     STUDENT ID
                   </label>
                   <input
-                    class="input-pixel w-full py-3 px-4 focus:ring-0 focus:outline-none pixel-font text-xs text-gray-700"
+                    className="input-pixel w-full py-3 px-4 focus:ring-0 focus:outline-none pixel-font text-xs text-gray-700"
                     placeholder="ID-12345"
                     type="text"
                   />
                 </div>
                 <div>
-                  <label class="block pixel-font text-[10px] text-[#5d2e0a] mb-2">
+                  <label className="block pixel-font text-[10px] text-[#5d2e0a] mb-2">
                     USERNAME
                   </label>
                   <input
-                    class="input-pixel w-full py-3 px-4 focus:ring-0 focus:outline-none pixel-font text-xs text-gray-700"
+                    className="input-pixel w-full py-3 px-4 focus:ring-0 focus:outline-none pixel-font text-xs text-gray-700"
                     placeholder="HERO_NAME"
                     type="text"
                   />
                 </div>
                 <div>
-                  <label class="block pixel-font text-[10px] text-[#5d2e0a] mb-2">
+                  <label className="block pixel-font text-[10px] text-[#5d2e0a] mb-2">
                     ROLE
                   </label>
-                  <select class="input-pixel w-full py-3 px-4 focus:ring-0 focus:outline-none pixel-font text-xs text-gray-700 appearance-none bg-white">
+                  <select className="input-pixel w-full py-3 px-4 focus:ring-0 focus:outline-none pixel-font text-xs text-gray-700 appearance-none bg-white">
                     <option>EXPLORER</option>
                     <option>TEACHER</option>
                   </select>
                 </div>
                 <div>
-                  <label class="block pixel-font text-[10px] text-[#5d2e0a] mb-2">
+                  <label className="block pixel-font text-[10px] text-[#5d2e0a] mb-2">
                     PASSWORD
                   </label>
                   <input
-                    class="input-pixel w-full py-3 px-4 focus:ring-0 focus:outline-none pixel-font text-xs text-gray-700"
+                    className="input-pixel w-full py-3 px-4 focus:ring-0 focus:outline-none pixel-font text-xs text-gray-700"
                     placeholder="••••••••"
                     type="password"
                   />
                 </div>
-                <div class="pt-4">
+                <div className="pt-4">
                   <button
-                    class="login-button w-full bg-green-500 hover:bg-green-400 text-white bungee text-2xl py-4 border-4 border-white rounded-none flex items-center justify-center gap-3"
+                    className="login-button w-full bg-green-500 hover:bg-green-400 text-white bungee text-2xl py-4 border-4 border-white rounded-none flex items-center justify-center gap-3"
                     type="submit"
                   >
                     LOGIN
-                    <span class="material-symbols-outlined text-3xl">
+                    <span className="material-symbols-outlined text-3xl">
                       login
                     </span>
                   </button>
                 </div>
               </form>
-              <div class="mt-6 text-center">
+              <div className="mt-6 text-center">
                 <a
-                  class="pixel-font text-[8px] text-[#8b4513] hover:underline"
+                  className="pixel-font text-[8px] text-[#8b4513] hover:underline"
                   href="#"
                 >
                   FORGOT YOUR QUEST KEY?
@@ -103,3 +103,4 @@ export default function Login() {
     </>
   );
 }
+
