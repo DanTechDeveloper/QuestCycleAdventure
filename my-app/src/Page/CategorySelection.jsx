@@ -1,6 +1,61 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import apiRequest from "../services/apiRequest";
 export default function CategorySelection() {
+  const [selectedChoice, setSelectedChoice] = useState(null);
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await apiRequest(
+        "http://localhost/CotedThesis/my-app/src/backend/api.php",
+        "CategorySelection",
+      );
+      if (response.status) {
+        setSelectedChoice(response.categories);
+      }
+    };
+    
+    fetchData();
+  }, []);
+  const quests = [
+    {
+      id: 1,
+      title: "WATER CYCLE",
+      path: "/waterCycle",
+      icon: "water_drop",
+      bgColor: "bg-blue-500",
+      overlayColor: "bg-blue-400",
+      status: "active",
+      buttonText: "PLAY",
+      buttonColor: "bg-yellow-400",
+      shadow: "shadow-[0_4px_0_#ca8a04]",
+    },
+    {
+      id: 2,
+      title: "ROCK CYCLE",
+      path: "/rock-cycle",
+      icon: "landscape",
+      bgColor: "bg-amber-700",
+      status: "locked",
+      buttonText: "LOCKED",
+      buttonColor: "bg-gray-400",
+      shadow: "",
+      status: "locked",
+    },
+    {
+      id: 3,
+      title: "PLANT CYCLE",
+      path: "/plant-cycle",
+      icon: "eco",
+      bgColor: "bg-green-600",
+      status: "locked",
+      buttonText: "LOCKED",
+      buttonColor: "bg-gray-400",
+      shadow: "",
+      status: "locked",
+    },
+  ];
   return (
     <>
       <div class="bg-blue-900 overflow-hidden">
@@ -54,98 +109,78 @@ export default function CategorySelection() {
               CHOOSE YOUR ADVENTURE
             </h1>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 w-full max-w-5xl">
-              <button
-                onClick={() => navigate("/waterCycle")}
-                class="quest-card quest-card-active bg-blue-500 rounded-2xl flex flex-col items-center justify-center p-8 group relative overflow-hidden"
-              >
-                <div
-                  className="absolute top-0 left-0 w-full h-full bg-blue-400 opacity-20 pointer-events-none"
-                  style={{
-                    backgroundImage:
-                      "radial-gradient(#fff 2px, transparent 2px)",
-                    backgroundSize: "16px 16px",
-                  }}
-                />
+              {quests.map((quest) => (
+                <button
+                  key={quest.id}
+                  onClick={() => navigate(quest.path)}
+                  className={`quest-card ${
+                    quest.status === "active"
+                      ? "quest-card-active group overflow-hidden"
+                      : "quest-card-locked"
+                  } ${
+                    quest.bgColor
+                  } rounded-2xl flex flex-col items-center justify-center p-8 relative`}
+                >
+                  {quest.status === "active" && (
+                    <div
+                      className={`absolute top-0 left-0 w-full h-full ${quest.overlayColor} opacity-20 pointer-events-none`}
+                      style={{
+                        backgroundImage:
+                          "radial-gradient(#fff 2px, transparent 2px)",
+                        backgroundSize: "16px 16px",
+                      }}
+                    />
+                  )}
 
-                <div class="mb-6 transform group-hover:scale-110 transition-transform">
-                  <div class="relative w-24 h-24 flex items-center justify-center">
-                    <span
-                      className="material-symbols-outlined text-white text-8xl"
-                      style={{ fontVariationSettings: '"FILL" 1' }}
-                    >
-                      water_drop
-                    </span>
-
-                    <div class="absolute inset-0 bg-white/20 blur-xl rounded-full"></div>
-                  </div>
-                </div>
-                <h2 class="pixel-font text-white text-lg mb-6">WATER CYCLE</h2>
-                <div class="bg-yellow-400 border-4 border-white px-8 py-3 rounded-xl bungee text-2xl text-white shadow-[0_4px_0_#ca8a04]">
-                  PLAY
-                </div>
-                <div class="absolute top-4 right-4">
-                  <span
-                    className="material-symbols-outlined text-yellow-300 text-4xl"
-                    style={{ fontVariationSettings: '"FILL" 1' }}
+                  <div
+                    className={`mb-6 ${
+                      quest.status === "active"
+                        ? "transform group-hover:scale-110 transition-transform"
+                        : ""
+                    }`}
                   >
-                    stars
-                  </span>
-                </div>
-              </button>
-              <button
-                onClick={() => navigate("/rock-cycle")}
-                class="quest-card quest-card-locked bg-amber-700 rounded-2xl flex flex-col items-center justify-center p-8 relative"
-              >
-                <div class="mb-6">
-                  <div class="relative w-24 h-24 flex items-center justify-center">
-                    <span
-                      className="material-symbols-outlined text-white text-8xl"
-                      style={{ fontVariationSettings: '"FILL" 1' }}
-                    >
-                      landscape
-                    </span>
+                    <div className="relative w-24 h-24 flex items-center justify-center">
+                      <span
+                        className="material-symbols-outlined text-white text-8xl"
+                        style={{ fontVariationSettings: '"FILL" 1' }}
+                      >
+                        {quest.icon}
+                      </span>
+                      {quest.status === "active" && (
+                        <div className="absolute inset-0 bg-white/20 blur-xl rounded-full"></div>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <h2 class="pixel-font text-white text-lg mb-6">ROCK CYCLE</h2>
-                <div class="bg-gray-400 border-4 border-white px-8 py-3 rounded-xl bungee text-2xl text-white">
-                  LOCKED
-                </div>
-                <div class="absolute inset-0 flex items-center justify-center z-20">
-                  <span
-                    className="material-symbols-outlined text-yellow-500 text-9xl drop-shadow-2xl"
-                    style={{ fontVariationSettings: '"FILL" 1' }}
+                  <h2 className="pixel-font text-white text-lg mb-6">
+                    {quest.title}
+                  </h2>
+                  <div
+                    className={`${quest.buttonColor} border-4 border-white px-8 py-3 rounded-xl bungee text-2xl text-white ${quest.shadow}`}
                   >
-                    lock
-                  </span>
-                </div>
-              </button>
-              <button
-                onClick={() => navigate("/plant-cycle")}
-                class="quest-card quest-card-locked bg-green-600 rounded-2xl flex flex-col items-center justify-center p-8 relative"
-              >
-                <div class="mb-6">
-                  <div class="relative w-24 h-24 flex items-center justify-center">
-                    <span
-                      className="material-symbols-outlined text-white text-8xl"
-                      style={{ fontVariationSettings: '"FILL" 1' }}
-                    >
-                      eco
-                    </span>
+                    {quest.buttonText}
                   </div>
-                </div>
-                <h2 class="pixel-font text-white text-lg mb-6">PLANT CYCLE</h2>
-                <div class="bg-gray-400 border-4 border-white px-8 py-3 rounded-xl bungee text-2xl text-white">
-                  LOCKED
-                </div>
-                <div className="absolute inset-0 flex items-center justify-center z-20">
-                  <span
-                    className="material-symbols-outlined text-yellow-500 text-9xl drop-shadow-2xl"
-                    style={{ fontVariationSettings: '"FILL" 1' }}
-                  >
-                    lock
-                  </span>
-                </div>
-              </button>
+                  {quest.status === "active" && (
+                    <div className="absolute top-4 right-4">
+                      <span
+                        className="material-symbols-outlined text-yellow-300 text-4xl"
+                        style={{ fontVariationSettings: '"FILL" 1' }}
+                      >
+                        stars
+                      </span>
+                    </div>
+                  )}
+                  {quest.status === "locked" && (
+                    <div className="absolute inset-0 flex items-center justify-center z-20">
+                      <span
+                        className="material-symbols-outlined text-yellow-500 text-9xl drop-shadow-2xl"
+                        style={{ fontVariationSettings: '"FILL" 1' }}
+                      >
+                        lock
+                      </span>
+                    </div>
+                  )}
+                </button>
+              ))}
             </div>
           </div>
           <div class="relative z-20 w-full p-8 flex justify-center">

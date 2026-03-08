@@ -1,7 +1,8 @@
 <?php
 include 'connect.php';
 
-function createUsers($data, $conn){
+function createUsers($data, $conn)
+{
     // Validate required fields
     if (!isset($data['id']) || !isset($data['username']) || !isset($data['role']) || !isset($data['password'])) {
         return [
@@ -66,7 +67,8 @@ function createUsers($data, $conn){
     }
 }
 
-function questionAndAnswer($conn){
+function questionAndAnswer($conn)
+{
     try {
         $sql = "SELECT * FROM questions";
         $stmt = $conn->prepare($sql);
@@ -75,6 +77,23 @@ function questionAndAnswer($conn){
         return $result;
     } catch (PDOException $e) {
         return ["status" => false, "message" => "Database error: " . $e->getMessage()];
+    }
+}
+
+function categorySelection($conn)
+{
+    try {
+        // SQL query
+        $sql = "SELECT c.id, c.name,
+            CASE WHEN c.id = 1 THEN 'unlocked' ELSE 'locked' END AS status
+            FROM categories c
+            ORDER BY c.id";
+
+        $stmt = $conn->query($sql);
+        $categories = $stmt->fetchAll();
+        return $categories;
+    } catch (PDOException $e) {
+        return ["status" => false, "message" => "" . $e->getMessage()];
     }
 }
 

@@ -15,6 +15,10 @@ switch ($action) {
         echo json_encode(['status' => true, 'questions' => questionAndAnswer($conn)]);
         break;
 
+    case 'CategorySelection':
+        echo json_encode(['status'=> true, 'categories' => categorySelection($conn)]);
+        break;
+
     default:
         echo json_encode([
             "status" => "error",
