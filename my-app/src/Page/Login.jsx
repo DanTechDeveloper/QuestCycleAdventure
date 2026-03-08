@@ -1,4 +1,50 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import apiRequest from "../services/apiRequest";
 export default function Login() {
+  const [user, setUser] = useState({
+    id: "",
+    username: "",
+    role: "",
+    password: "",
+  });
+
+  const navigate = useNavigate();
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await apiRequest(
+        "http://localhost/CotedThesis/my-app/src/backend/api.php",
+        "login",
+        "POST",
+        user,
+      );
+      console.log("Login response:", response);
+      // Handle success or error based on response.status
+      if (response.status) {
+        alert("User created successfully!");
+        setUser({
+          id: "",
+          username: "",
+          role: "",
+          password: "",
+        })
+        navigate("/splashScreen");
+      
+      } else {
+        alert("Error: " + response.message);
+      }
+    } catch (err) {
+      console.error("Login failed:", err);
+      alert("Login error: " + err.message);
+    }
+  };
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
   return (
     <>
       <div className="bg-blue-900 overflow-hidden">
@@ -19,30 +65,34 @@ export default function Login() {
               }}
             ></div>
           </div>
-            <div className="relative z-20 mb-6 text-center">
-              <h1 className="text-white text-4xl md:text-6xl bungee tracking-tighter drop-shadow-[0_4px_0_rgba(0,0,0,0.6)]">
-                QUEST <span className="text-yellow-300">EARTH</span>
+          <div className="relative z-20 mb-6 text-center">
+            <h1 className="text-white text-4xl md:text-6xl bungee tracking-tighter drop-shadow-[0_4px_0_rgba(0,0,0,0.6)]">
+              QUEST <span className="text-yellow-300">EARTH</span>
             </h1>
             <p className="text-white text-sm md:text-base pixel-font tracking-tight mt-2 bg-black/40 px-4 py-1 border-2 border-white/20 inline-block">
               EXPLORER LOGIN
             </p>
           </div>
           <div className="relative z-10 flex items-center justify-center w-full max-w-5xl px-4">
-          
-              <div className="parchment-container w-full max-w-md p-8 md:p-10 border-4 border-[#8b4513] rounded-sm">
-                <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#8b4513]"></div>
-                <div className="absolute -top-2 -right-2 w-6 h-6 bg-[#8b4513]"></div>
-                <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-[#8b4513]"></div>
-                <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-[#8b4513]"></div>
-                <form className="space-y-5">
+            <div className="parchment-container w-full max-w-md p-8 md:p-10 border-4 border-[#8b4513] rounded-sm">
+            
+              <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#8b4513]"></div>
+              <div className="absolute -top-2 -right-2 w-6 h-6 bg-[#8b4513]"></div>
+              <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-[#8b4513]"></div>
+              <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-[#8b4513]"></div>
+              <form className="space-y-5" onSubmit={handleOnSubmit}>
                 <div>
                   <label className="block pixel-font text-[10px] text-[#5d2e0a] mb-2">
-                    STUDENT ID
+                    SCHOOL ID
                   </label>
                   <input
                     className="input-pixel w-full py-3 px-4 focus:ring-0 focus:outline-none pixel-font text-xs text-gray-700"
-                    placeholder="ID-12345"
+                    placeholder="Enter your School ID"
                     type="text"
+                    name="id"
+                    onChange={(e) => handleOnChange(e)}
+                    value={user.id}
+
                   />
                 </div>
                 <div>
@@ -51,17 +101,25 @@ export default function Login() {
                   </label>
                   <input
                     className="input-pixel w-full py-3 px-4 focus:ring-0 focus:outline-none pixel-font text-xs text-gray-700"
-                    placeholder="HERO_NAME"
+                    placeholder="Enter your Username"
                     type="text"
+                    name="username"
+                    onChange={(e) => handleOnChange(e)}
+                    value={user.username}
                   />
                 </div>
                 <div>
                   <label className="block pixel-font text-[10px] text-[#5d2e0a] mb-2">
                     ROLE
                   </label>
-                  <select className="input-pixel w-full py-3 px-4 focus:ring-0 focus:outline-none pixel-font text-xs text-gray-700 appearance-none bg-white">
-                    <option>EXPLORER</option>
-                    <option>TEACHER</option>
+                  <select
+                    name="role"
+                    className="input-pixel w-full py-3 px-4 focus:ring-0 focus:outline-none pixel-font text-xs text-gray-700 appearance-none bg-white"
+                    onChange={(e) => handleOnChange(e)}
+                    value={user.role}
+                  >
+                    <option value="Student">STUDENT</option>
+                    <option value="Teacher">TEACHER</option>
                   </select>
                 </div>
                 <div>
@@ -70,8 +128,11 @@ export default function Login() {
                   </label>
                   <input
                     className="input-pixel w-full py-3 px-4 focus:ring-0 focus:outline-none pixel-font text-xs text-gray-700"
-                    placeholder="••••••••"
+                    placeholder="Enter your Password"
                     type="password"
+                    name="password"
+                    onChange={(e) => handleOnChange(e)}
+                    user={user.password}
                   />
                 </div>
                 <div className="pt-4">
@@ -95,12 +156,9 @@ export default function Login() {
                 </a>
               </div>
             </div>
-             
           </div>
-       
         </div>
       </div>
     </>
   );
 }
-

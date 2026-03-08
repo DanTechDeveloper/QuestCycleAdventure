@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
 export default function SplashScreen() {
+  const navigate = useNavigate();
+  const handleOnClick = () => navigate('/categoryselection');
+
   return (
     <>
       <div className="bg-blue-900 overflow-hidden">
@@ -31,7 +35,7 @@ export default function SplashScreen() {
               </p>
             </div>
             <div className="mb-16">
-              <button className="game-button bg-green-500 hover:bg-green-400 text-white bungee text-3xl md:text-4xl px-12 py-6 rounded-3xl border-4 border-white flex items-center gap-4 group">
+              <button onClick={handleOnClick} className="game-button bg-green-500 hover:bg-green-400 text-white bungee text-3xl md:text-4xl px-12 py-6 rounded-3xl border-4 border-white flex items-center gap-4 group">
                 START QUEST
                 <span className="material-symbols-outlined text-4xl group-hover:translate-x-2 transition-transform">
                   play_arrow
