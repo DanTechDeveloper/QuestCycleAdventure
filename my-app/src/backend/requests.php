@@ -67,6 +67,67 @@ function createUsers($data, $conn)
     }
 }
 
+function loginUser($data, $conn)
+{
+    // Validate required fields
+    if (!isset($data['id']) || !isset($data['password']) || !isset($data['role'])) {
+        return [
+            "status" => false,
+            "message" => "Missing required fields: id, role, password"
+        ];
+    }
+
+    $id = trim($data['id']);
+    $password = trim($data['password']);
+    $role = trim($data['role']);
+
+    if (empty($id) || empty($password) || empty($role)) {
+        return [
+            "status" => false,
+            "message" => "All fields are required"
+        ];
+    }
+
+    try {
+        // Fetch user from DB
+        $sql = "SELECT sacli_id, username, role, password FROM users WHERE sacli_id = :sacli_id AND role = :role";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([':sacli_id' => $id, ':role' => $role]);
+
+        if ($stmt->rowCount() > 0) {
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            // Verify password
+            if (password_verify($password, $user['password'])) {
+                return [
+                    "status" => true,
+                    "message" => "Login successful",
+                    "user" => [
+                        "id" => $user['sacli_id'],
+                        "username" => $user['username'],
+                        "role" => $user['role']
+                    ]
+                ];
+            } else {
+                return [
+                    "status" => false,
+                    "message" => "Invalid password"
+                ];
+            }
+        } else {
+            return [
+                "status" => false,
+                "message" => "User not found or role mismatch"
+            ];
+        }
+    } catch (PDOException $e) {
+        return [
+            "status" => "error",
+            "message" => "Database error: " . $e->getMessage()
+        ];
+    }
+}
+
 function questionAndAnswer($conn)
 {
     try {

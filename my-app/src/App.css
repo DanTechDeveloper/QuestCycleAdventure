@@ -1,42 +1,103 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/container-queries";
+
+@theme {
+  --color-primary: #4ade80;
+  --color-secondary: #fde047;
+  --color-accent: #fb7185;
+  --color-game-blue: #38bdf8;
+  --radius-xl: 2rem;
+  --radius-2xl: 3rem;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+:root {
+    --game-green: #4ade80;
+    --game-yellow: #fde047;
+    --game-blue: #38bdf8;
+    --game-accent: #fb7185;
+    --pixel-hill-dark: #15803d;
+    --pixel-hill-light: #22c55e;
+    --pixel-sun: #fb923c;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body {
+    font-family: 'Fredoka', sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.bungee {
+    font-family: 'Bungee', cursive;
 }
 
-.card {
-  padding: 2em;
+.pixel-font {
+    font-family: 'Press Start 2P', cursive;
 }
 
-.read-the-docs {
-  color: #888;
+.game-button {
+    box-shadow: 0 8px 0 #15803d;
+    transition: all 0.1s ease;
+}
+
+.game-button:active {
+    box-shadow: 0 2px 0 #15803d;
+    transform: translateY(6px);
+}
+
+.pixel-sky {
+    background: linear-gradient(to bottom, #1e40af 0%, #3b82f6 40%, #fb923c 80%, #f97316 100%);
+}
+
+.pixel-sun {
+    width: 120px;
+    height: 120px;
+    background: var(--pixel-sun);
+    box-shadow: 
+        0 0 0 8px #f97316,
+        0 0 0 16px rgba(249, 115, 22, 0.4);
+    clip-path: polygon(
+        20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%
+    );
+}
+
+.pixel-cloud {
+    background: white;
+    box-shadow: 
+        8px 0 0 0 white,
+        -8px 0 0 0 white,
+        0 8px 0 0 white,
+        0 -8px 0 0 white,
+        16px 8px 0 0 white,
+        -16px 8px 0 0 white;
+}
+
+.pixel-hill {
+    position: absolute;
+    bottom: 0;
+    width: 150%;
+    height: 40%;
+    background: var(--pixel-hill-light);
+    clip-path: polygon(
+        0% 100%, 10% 80%, 25% 90%, 40% 70%, 55% 85%, 75% 65%, 90% 80%, 100% 100%
+    );
+}
+
+.pixel-hill-back {
+    background: var(--pixel-hill-dark);
+    height: 50%;
+    opacity: 0.6;
+    clip-path: polygon(
+        0% 100%, 15% 60%, 30% 75%, 50% 50%, 70% 70%, 85% 55%, 100% 100%
+    );
+}
+
+.star-trail {
+    background-image: radial-gradient(circle, #fde047 20%, transparent 20%);
+    background-size: 20px 20px;
+}
+
+.pixel-cyclist {
+    image-rendering: pixelated;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
