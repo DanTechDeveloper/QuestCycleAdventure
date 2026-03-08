@@ -7,14 +7,16 @@ $action = $_GET['action'] ?? $_POST['action'] ?? null;
 $jsonData = file_get_contents('php://input');
 $data = json_decode($jsonData, true);
 switch ($action) {
-    case "register":
-        $response = createUsers($data, $conn);
-        echo json_encode($response);
-        break;
     case "login":
-        $response = loginUser($data, $conn);
+        $response = login($data, $conn);
         echo json_encode($response);
         break;
+        
+        case "register":
+            $response = register($data, $conn);
+            echo json_encode($response);
+            break;
+        
     case "QuestionAndAnswer":
         echo json_encode(['status' => true, 'questions' => questionAndAnswer($conn)]);
         break;

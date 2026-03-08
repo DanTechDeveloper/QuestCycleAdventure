@@ -20,10 +20,6 @@ export default function Login() {
       // Direct action based on the mode selected
       const action = mode === "login" ? "login" : "register";
       const endpoint = "http://localhost/CotedThesis/my-app/src/backend/api.php";
-
-      console.log(`[AUTH EVENT Data Flow] Sending request to: ${endpoint}?action=${action}`);
-      console.log(`Payload being sent to ${action}:`, user);
-      
       const response = await apiRequest(
         endpoint,
         action,
@@ -32,7 +28,6 @@ export default function Login() {
       );
       // Handle success or error based on response.status
       if (response.success) {
-        alert(mode === "login" ? "Login successful!" : "User created successfully!");
         setUser({
           id: "",
           username: "",
@@ -40,7 +35,7 @@ export default function Login() {
           password: "",
         });
         if (mode === "login") {
-           navigate("/splashScreen");
+          navigate("/categoryselection");
         } else {
            // Switch to login mode after successful registration
            setMode("login");

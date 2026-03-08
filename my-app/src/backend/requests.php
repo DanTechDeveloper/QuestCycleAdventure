@@ -1,7 +1,7 @@
 <?php
 include 'connect.php';
 
-function createUsers($data, $conn)
+function register($data, $conn)
 {
     // Validate required fields
     if (!isset($data['id']) || !isset($data['username']) || !isset($data['role']) || !isset($data['password'])) {
@@ -51,6 +51,7 @@ function createUsers($data, $conn)
         ]);
 
         return [
+            "success" => true,
             "status" => true,
             "message" => "User created successfully",
             "user" => [
@@ -61,13 +62,14 @@ function createUsers($data, $conn)
         ];
     } catch (PDOException $e) {
         return [
+            "success" => false,
             "status" => "error",
             "message" => "Database error: " . $e->getMessage()
         ];
     }
 }
 
-function loginUser($data, $conn)
+function login($data, $conn)
 {
     // Validate required fields
     if (!isset($data['id']) || !isset($data['password']) || !isset($data['role'])) {
@@ -99,8 +101,14 @@ function loginUser($data, $conn)
 
             // Verify password
             if (password_verify($password, $user['password'])) {
+                // Set session variables
+                $_SESSION['user_id'] = $user['sacli_id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['role'] = $user['role'];
+                
                 return [
-                    "status" => true,
+                    "success" => true,
+                    "status" => true, // Legacy fallback for other API consumers
                     "message" => "Login successful",
                     "user" => [
                         "id" => $user['sacli_id'],
@@ -110,18 +118,21 @@ function loginUser($data, $conn)
                 ];
             } else {
                 return [
+                    "success" => false,
                     "status" => false,
                     "message" => "Invalid password"
                 ];
             }
         } else {
             return [
+                "success" => false,
                 "status" => false,
                 "message" => "User not found or role mismatch"
             ];
         }
     } catch (PDOException $e) {
         return [
+            "success" => false,
             "status" => "error",
             "message" => "Database error: " . $e->getMessage()
         ];
